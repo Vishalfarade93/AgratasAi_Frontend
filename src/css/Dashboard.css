@@ -1,0 +1,266 @@
+.page-container {
+  padding: 28px 28px 40px 28px;
+  min-height: 100vh;
+  background: var(--dark);
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 70px 16px 40px 16px;
+  }
+}
+
+.dashboard-header {
+  margin-bottom: 28px;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.header-sub {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.status-badge.complete {
+  background: rgba(63,185,80,0.12);
+  color: var(--teal);
+  border: 1px solid rgba(63,185,80,0.3);
+}
+.status-badge.incomplete {
+  background: rgba(210,153,34,0.12);
+  color: var(--yellow);
+  border: 1px solid rgba(210,153,34,0.3);
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.kpi-card {
+  border-radius: 10px;
+  padding: 16px 18px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.kpi-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  opacity: 0.7;
+}
+
+.kpi-label {
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 10px;
+}
+
+.kpi-value {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.kpi-sub {
+  color: var(--subtle);
+  font-size: 11px;
+}
+
+.charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.panel {
+  background: var(--navy);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+
+.panel-title {
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  letter-spacing: 0.2px;
+}
+
+.price-gap-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.price-gap-table th {
+  color: var(--subtle);
+  font-size: 10px;
+  text-align: left;
+  padding: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.price-gap-table td {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.price-gap-table tr:last-child td {
+  border-bottom: none;
+}
+
+.keyword-cell {
+  color: var(--white);
+  font-size: 13px;
+}
+
+.market-price, .brand-price {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.gap-positive {
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 700;
+}
+.gap-negative {
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.position-badge {
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(88,166,255,0.12);
+  color: var(--orange);
+  border: 1px solid rgba(88,166,255,0.25);
+}
+
+.opportunities-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.opportunity-card {
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  border-top-width: 2px;
+  border-top-style: solid;
+}
+
+.opportunity-keyword {
+  color: var(--white);
+  font-weight: 600;
+  font-size: 12px;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.opportunity-volume {
+  color: var(--orange);
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.volume-unit {
+  color: var(--subtle);
+  font-weight: 400;
+}
+
+.opportunity-share {
+  color: var(--muted);
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+.share-value {
+  color: var(--teal);
+}
+
+.opportunity-detail {
+  color: var(--subtle);
+  font-size: 10px;
+}
+
+.no-reports {
+  text-align: center;
+  padding: 80px 20px;
+}
+.no-reports-icon {
+  font-size: 52px;
+  margin-bottom: 16px;
+}
+.no-reports-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.no-reports-text {
+  color: var(--muted);
+}
+
+.spinner {
+  color: var(--muted);
+  padding: 40px;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .charts-row {
+    grid-template-columns: 1fr;
+  }
+  .opportunities-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+  .opportunities-grid {
+    grid-template-columns: 1fr;
+  }
+}
