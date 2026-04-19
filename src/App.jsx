@@ -7,7 +7,22 @@ import Dashboard from './pages/Dashboard'
 import TrendsPage from './pages/TrendsPage'
 import ReportsPage from './pages/ReportsPage'
 import InsightsPage from './pages/InsightsPage'
+import KeywordPage from './pages/KeywordPage'
 import './index.css'
+
+// Protected but NO sidebar — for full-page detail views
+function ProtectedNoSidebar({ children }) {
+  const { seller, loading } = useAuth()
+
+  if (loading) return <div style={{ color: '#fff', padding: 40 }}>Loading...</div>
+  if (!seller) return <Navigate to="/login" replace />
+
+  return (
+    <div className="page-content" style={{ marginLeft: 0, paddingTop: 28 }}>
+      {children}
+    </div>
+  )
+}
 
 function Protected({ children }) {
   const { seller, loading } = useAuth()
@@ -29,7 +44,7 @@ function Protected({ children }) {
         onClick={() => setSidebarOpen(false)}
       />
 
-      {/* Sidebar — gets .open class on mobile */}
+      {/* Sidebar */}
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       {/* Page content */}
@@ -49,7 +64,11 @@ function AppRoutes() {
       <Route path="/trends"    element={<Protected><TrendsPage /></Protected>} />
       <Route path="/reports"   element={<Protected><ReportsPage /></Protected>} />
       <Route path="/insights"  element={<Protected><InsightsPage /></Protected>} />
-      <Route path="*"          element={<Navigate to={seller ? '/dashboard' : '/login'} replace />} />
+
+      {/* Keyword deep dive — also protected */}
+      <Route path="/keyword/:keyword" element={<ProtectedNoSidebar><KeywordPage /></ProtectedNoSidebar>} />
+
+      <Route path="*" element={<Navigate to={seller ? '/dashboard' : '/login'} replace />} />
     </Routes>
   )
 }

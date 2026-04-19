@@ -6,14 +6,14 @@ import logo from '../assets/logo.png'
 const navItems = [
   { path: '/dashboard', label: 'Dashboard',   icon: <i className="bi bi-speedometer"></i>, color: C.orange },
   { path: '/trends',    label: 'Trends & ML', icon: <i className="bi bi-bar-chart-line-fill"></i>, color: C.teal   },
-  { path: '/reports',   label: 'Reports',     icon: <i className="bi bi-file-earmark-fill"></i>, color: C.purple },
   { path: '/insights',  label: 'Insights',    icon: <i className="bi bi-lightbulb-fill"></i>, color: C.yellow },
+  { path: '/reports',   label: 'Reports',     icon: <i className="bi bi-file-earmark-fill"></i>, color: C.purple },
 ]
 
 export default function Sidebar({ open, onClose }) {
   const navigate = useNavigate()
   const location = useLocation()
-  const { seller, logout } = useAuth()
+  const { seller, logoutSeller } = useAuth()
 
   const go = (path) => {
     navigate(path)
@@ -76,7 +76,7 @@ export default function Sidebar({ open, onClose }) {
 
       {/* Logout */}
       <div style={{  padding: '10px 10px', position: 'fixed' ,bottom: 0,left: 0,right: 0, background: C.bg }}>  
-        <button onClick={() => { logout(); navigate('/login') }}
+        <button onClick={() => { logoutSeller(); navigate('/login') }}
           style={{ width: '100%', padding: '9px 10px', border: 'none', borderRadius: 8, background: 'transparent', color: C.muted, cursor: 'pointer', fontSize: 12, textAlign: 'left' }}>
           ← Sign Out
         </button>

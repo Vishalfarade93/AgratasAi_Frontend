@@ -2,24 +2,79 @@ import { useEffect, useState } from 'react'
 import { getLatestAnalytics } from '../api/client'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import { C } from '../colors'
+import { useNavigate } from 'react-router-dom'
 
+function Skel({ width = '100%', height = 16, radius = 6, style = {} }) {
+  return (
+    <div style={{
+      width, height,
+      borderRadius: radius,
+      background: `linear-gradient(90deg, ${C.navy} 25%, ${C.panel2} 50%, ${C.navy} 75%)`,
+      backgroundSize: '200% 100%',
+      animation: 'shimmer 1.4s infinite',
+      ...style
+    }} />
+  )
+}
+
+function KpiSkeleton() {
+  return (
+    <div style={{ background: C.navy, border: `1px solid ${C.border}`, borderRadius: 10, padding: '16px 18px' }}>
+      <Skel width="55%" height={11} style={{ marginBottom: 12 }} />
+      <Skel width="38%" height={26} style={{ marginBottom: 8 }} />
+      <Skel width="65%" height={11} />
+    </div>
+  )
+}
+
+function DashboardSkeleton() {
+  return (
+    <div>
+      <style>{`@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}`}</style>
+      <div style={{ marginBottom: 24 }}>
+        <Skel width={190} height={24} style={{ marginBottom: 8 }} />
+        <Skel width={130} height={13} />
+      </div>
+      <div className="kpi-grid">
+        {[...Array(4)].map((_,i) => <KpiSkeleton key={i} />)}
+      </div>
+      <div className="kpi-grid" style={{ marginBottom: 20 }}>
+        {[...Array(4)].map((_,i) => <KpiSkeleton key={i} />)}
+      </div>
+      <div className="charts-row">
+        <Skel height={280} radius={10} />
+        <Skel height={280} radius={10} />
+      </div>
+      <Skel height={180} radius={10} style={{ marginTop: 20 }} />
+    </div>
+  )
+}
+//--------------------------------------------
 export default function Dashboard() {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
 
   useEffect(() => {
     getLatestAnalytics().then(res => setData(res.data)).finally(() => setLoading(false))
   }, [])
 
-  if (loading) return (
-    <div style={{ color: C.muted, padding: 40, textAlign: 'center' }}>Loading...</div>
-  )
+  
+  if (loading) return <DashboardSkeleton />
 
+  // Empty state with upload button 
   if (!data?.success) return (
     <div style={{ textAlign: 'center', padding: '80px 20px' }}>
       <div style={{ fontSize: 52, marginBottom: 16 }}>📦</div>
       <div style={{ fontSize: 20, fontWeight: 700, color: C.white, marginBottom: 8 }}>No reports yet</div>
-      <div style={{ color: C.muted }}>Upload your first weekly SQP CSV to get started</div>
+      <div style={{ color: C.muted, marginBottom: 24 }}>Upload your first weekly SQP CSV to get started</div>
+      <button onClick={() => navigate('/reports')} style={{
+        padding: '10px 24px', borderRadius: 8,
+        background: 'linear-gradient(135deg,#58A6FF,#BC8CFF)',
+        border: 'none', color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer'
+      }}>
+        Upload CSV →
+      </button>
     </div>
   )
 
@@ -35,7 +90,7 @@ export default function Dashboard() {
 
   return (
     <div>
-      {/* Header */}
+      {/* Header — unchanged */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, flexWrap: 'wrap', gap: 10 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 700, color: C.white }}>Market Overview</h1>
@@ -51,7 +106,7 @@ export default function Dashboard() {
         </span>
       </div>
 
-      {/* KPI Row 1 */}
+      {/* KPI Row 1 —  */}
       <div className="kpi-grid">
         <KpiCard label="Market CTR"      value={`${funnel.market_ctr_pct}%`}          sub="Impressions → Clicks"  gradient="linear-gradient(135deg,#58A6FF22,#58A6FF08)" accent={C.orange} />
         <KpiCard label="Market CVR"      value={`${funnel.market_cvr_pct}%`}          sub="Clicks → Purchases"   gradient="linear-gradient(135deg,#3FB95022,#3FB95008)" accent={C.teal}   />
@@ -59,7 +114,7 @@ export default function Dashboard() {
         <KpiCard label="Cart Conversion" value={`${funnel.cart_to_purchase_pct}%`}    sub="Cart → Purchase"       gradient="linear-gradient(135deg,#D2992222,#D2992208)" accent={C.yellow} />
       </div>
 
-      {/* KPI Row 2 */}
+      {/* KPI Row 2 —  */}
       <div className="kpi-grid" style={{ marginBottom: 20 }}>
         <KpiCard label="Impression Share"  value={`${brand_share.avg_impression_share}%`}              sub="Brand visibility avg" gradient="linear-gradient(135deg,#39D5D522,#39D5D508)" accent={C.cyan}   />
         <KpiCard label="Click Share"       value={`${brand_share.avg_click_share}%`}                   sub="Brand clicks avg"     gradient="linear-gradient(135deg,#FF7B7222,#FF7B7208)" accent={C.pink}   />
@@ -67,10 +122,8 @@ export default function Dashboard() {
         <KpiCard label="Total Impressions" value={`${(summary.total_impressions/1000000).toFixed(2)}M`} sub="Market this week"    gradient="linear-gradient(135deg,#58A6FF22,#58A6FF08)" accent={C.orange} />
       </div>
 
-      {/* Charts Row — Funnel + Price Gap */}
+      {/* Charts Row */}
       <div className="charts-row">
-
-        {/* Market Funnel */}
         <div style={{ background: C.navy, border: `1px solid ${C.border}`, borderRadius: 10, padding: '18px 20px' }}>
           <h3 style={{ color: C.white, fontSize: 13, fontWeight: 600, marginBottom: 16 }}>Market Funnel</h3>
           <ResponsiveContainer width="100%" height={220}>
@@ -79,7 +132,7 @@ export default function Dashboard() {
               <YAxis tick={{ fill: C.subtle, fontSize: 10 }} axisLine={false} tickLine={false}
                 tickFormatter={v => v >= 1000000 ? `${(v/1000000).toFixed(1)}M` : `${(v/1000).toFixed(0)}k`} />
               <Tooltip
-                contentStyle={{ background: C.panel2, border: 'none', boxShadow: 'none',borderRadius: 8, fontSize: 12, color: C.white }}
+                contentStyle={{ background: C.panel2, border: 'none', boxShadow: 'none', borderRadius: 8, fontSize: 12, color: C.white }}
                 labelStyle={{ color: C.white, fontWeight: 600 }}
                 itemStyle={{ color: C.muted }}
                 cursor={{ fill: 'rgba(16, 14, 24, 0)' }}
@@ -92,7 +145,6 @@ export default function Dashboard() {
           </ResponsiveContainer>
         </div>
 
-        {/* Price Gap Analysis */}
         <div style={{ background: C.navy, border: `1px solid ${C.border}`, borderRadius: 10, padding: '18px 20px' }}>
           <h3 style={{ color: C.white, fontSize: 13, fontWeight: 600, marginBottom: 16 }}>Price Gap Analysis</h3>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
@@ -122,8 +174,8 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Top Growth Opportunities */}
-      <div style={{ background: C.navy, border: `1px solid ${C.border}`, borderRadius: 10, padding: '18px 20px' }}>
+      {/* Top Growth Opportunities — unchanged */}
+      <div style={{ background: C.navy, border: `1px solid ${C.border}`, borderRadius: 10, padding: '18px 20px', marginTop: 20 }}>
         <h3 style={{ color: C.white, fontSize: 13, fontWeight: 600, marginBottom: 16 }}>🎯 Top Growth Opportunities</h3>
         <div className="opp-grid">
           {top_opportunities.map((opp,i) => (

@@ -1,0 +1,238 @@
+.keyword-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 28px;
+}
+
+@media (max-width: 768px) {
+  .keyword-container {
+    padding: 70px 16px 40px 16px;
+  }
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 28px;
+  transition: all 0.2s;
+}
+.back-button:hover {
+  background: rgba(88,166,255,0.1);
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.keyword-header {
+  margin-bottom: 32px;
+}
+.keyword-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.keyword-name {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--white);
+  margin: 0;
+}
+.pattern-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.confidence-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(88,166,255,0.12);
+  border: 1px solid rgba(88,166,255,0.25);
+  color: #58A6FF;
+}
+.keyword-stats {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* KPI Grid (same as Dashboard) */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+@media (max-width: 1024px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Chart Cards */
+.chart-card {
+  background: var(--navy);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px 24px;
+  margin-bottom: 24px;
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.section-title i {
+  color: var(--orange);
+  font-size: 18px;
+}
+.section-title span {
+  color: var(--white);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* Two column layout */
+.two-columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+@media (max-width: 768px) {
+  .two-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Funnel items (same as Dashboard's opportunities grid) */
+.funnel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+@media (max-width: 640px) {
+  .funnel-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.funnel-item {
+  text-align: center;
+  padding: 20px 12px;
+  background: var(--panel2);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  border-top-width: 3px;
+  border-top-style: solid;
+}
+.funnel-value {
+  font-size: 22px;
+  font-weight: 800;
+}
+.funnel-label {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.funnel-metrics {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.funnel-metrics strong {
+  color: var(--white);
+}
+
+/* AI Insight */
+.ai-card {
+  background: linear-gradient(135deg, rgba(88,166,255,0.08) 0%, rgba(188,140,255,0.05) 100%);
+  border: 1px solid rgba(88,166,255,0.25);
+  border-radius: 16px;
+  padding: 24px 28px;
+  margin-top: 8px;
+}
+.ai-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.ai-header i {
+  color: #58A6FF;
+  font-size: 20px;
+}
+.ai-title {
+  color: #58A6FF;
+  font-weight: 700;
+  font-size: 15px;
+}
+.ai-model {
+  margin-left: auto;
+  padding: 4px 12px;
+  border-radius: 30px;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(88,166,255,0.15);
+  color: #58A6FF;
+  border: 1px solid rgba(88,166,255,0.3);
+}
+.ai-text {
+  color: var(--white);
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.forecast-stats {
+  display: flex;
+  gap: 24px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.chart-footer {
+  display: flex;
+  gap: 16px;
+  margin-top: 14px;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.chart-footer strong {
+  color: var(--white);
+}

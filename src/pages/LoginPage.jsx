@@ -4,13 +4,14 @@ import { login, register } from '../api/client'
 import { useAuth } from '../context/AuthContext'
 import { C } from '../colors'
 import '../css/LoginPage.css'
+import logo from '../assets/logo.png' 
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true)
   const [form, setForm] = useState({ name: '', email: '', password: '', brand_name: '' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { loginSuccess } = useAuth()
+  const { loginSeller } = useAuth()
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -21,9 +22,21 @@ export default function LoginPage() {
       const res = isLogin
         ? await login({ email: form.email, password: form.password })
         : await register(form)
-      loginSuccess(res.data)
+
+      // Extract seller data and token from backend response
+      const sellerData = {
+        id: res.data.seller_id,
+        name: res.data.name,
+        brand_name: res.data.brand_name
+      }
+      const token = res.data.token
+
+      // Pass both arguments as expected by loginSeller
+      loginSeller(sellerData, token)
+
       navigate('/dashboard')
     } catch (err) {
+      console.error('Login error:', err)
       setError(err.response?.data?.detail || 'Something went wrong')
     } finally {
       setLoading(false)
@@ -35,9 +48,8 @@ export default function LoginPage() {
       <div className="login-box">
         <div className="logo-area">
           <div className="logo-wrapper">
-            <div className="logo-square">A</div>
-            <span className="logo-text-large">agratas</span>
-            <span className="logo-ai-badge">AI</span>
+            <img src={logo} alt="Agratas" style={{ height:120 }} />
+            <span className="brand-name">AgratasAi</span>          
           </div>
           <p className="tagline">Amazon SQP Market Intelligence Platform</p>
         </div>
